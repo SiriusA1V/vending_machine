@@ -1,0 +1,19 @@
+body {    
+    background-color: rgb(249, 249, 249);
+    margin: 0px;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+:root{    
+    /* font-size */
+
+    /* font-weight */
+
+    /* button size */
+
+    /* content width */
+
+    /* z-depth */
+}

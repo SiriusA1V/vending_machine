@@ -1,0 +1,84 @@
+:root {
+    /* font-size */
+
+    /* font-weight */
+
+    /* button size */
+
+    /* content width */
+
+    /* z-depth */
+}
+
+
+.v-vendingmachine-div_main{
+    height: 100%;
+    width: 100%;
+}
+
+
+.v-vendingmachine-div{
+    margin: 2% 35%; 
+}
+
+.v-vendingmachine-div_content{
+    background-image: url("../../../image/vendingMachine.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 740px;
+    width: 500px;
+    padding-top: 25px;
+}
+
+.v-vendingmachine-div_juicelist{ 
+    margin-left: 28px;
+    width: 323px;
+    height: 488px;
+    float: left;
+}
+
+.v-vendingmachine-div_coin{
+    padding-top: 20px;
+    margin-left: 378px;
+    width: 77px;
+    height: 467px;
+}
+
+.v-vendingmachine-div_bottom{
+    margin-left: 28px;
+    margin-top: 9px;
+    width: 323px;
+    height: 164px;
+}
+
+.v-vendingmachine-div_amount{
+    background-color: white;
+    margin-left: 6px;
+    width: 65px;
+    text-align: right;
+}
+
+
+.v-vendingmachine-button_coin{
+    margin-top: 170px;
+    margin-left: 12px;
+    height: 50px;
+    width: 50px;
+    outline: none;
+}
+
+.v-vendingmachine-button_change{
+    margin-top: 20px;
+    margin-left: 8px;
+    height: 40px;
+    width: 63px;
+    outline: none;
+}
+
+.v-vendingmachine-button_push{
+    margin-top: 40px;
+    margin-left: 64px;
+    height: 93px;
+    width: 200px;
+    outline: none;
+}

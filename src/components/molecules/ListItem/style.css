@@ -1,0 +1,52 @@
+:root {
+    /* font-size */
+
+    /* font-weight */
+
+    /* button size */
+
+    /* content width */
+
+    /* z-depth */
+}
+
+
+.v-listitem-div{
+    margin: 1px;
+    padding: 2%;
+    width: 65px;
+    height: 70px;
+    float: left;
+    /*box-shadow: 0px 5px 0px yellowgreen;*/
+    /*background-color: yellow;*/
+}
+
+.v-listitem-img{
+    padding-left: 30%;
+    padding-top: 2px;
+    width: 16px;
+    height: 40px;
+}
+
+.v-listitem-paper{
+    margin-left: 10%;
+    width: 50px;
+    height: 67px;
+}
+
+.v-listitem-price{
+    padding-left: 15%;
+}
+
+.v-listitem-paper_div_cover{
+    position: absolute;
+    background-color: rgba(14, 13, 13, 0.452);
+    width: 65px;
+    height: 70px;
+}
+
+.v-listitem-paper_div_cover2{
+    position: absolute;
+    width: 65px;
+    height: 70px;
+}
