@@ -1,0 +1,20 @@
+:root {
+    /* font-size */
+
+    /* font-weight */
+
+    /* button size */
+
+    /* content width */
+
+    /* z-depth */
+}
+
+
+.v-stock-img{
+    margin-right: 10px;
+    padding: 0px 10px;
+    width: 16px;
+    height: 40px;    
+    outline: none;
+}

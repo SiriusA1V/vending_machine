@@ -4,36 +4,40 @@ import './style.css';
 import {Dialog, TextField, Button, DialogTitle, DialogContent} from '@material-ui/core';
 
 import ListItem from '../../molecules/ListItem';
+import Stock from '../../molecules/Stock';
+
+const S3_URL = "https://vending-machine-choe.s3-ap-northeast-1.amazonaws.com/";
 
 class VendingMachine extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            juice_list : this.props.juice_list,
             amount : 0,
             input_amount : 0,
             isSet_amount : false,
             isGive_change : false,
             is_push : false,
-            ecobag_list : []
+            ecobag_list : [],
+            isSet_Stock : false
         }
+
+        console.log(this.props.juice_list)
     }
 
     //ジュースを買った時の処理
     pickJuice=(e)=>{
-        if(e.quantity > 0 && e.price <= this.state.amount){
-            this.setState({
-                amount : (parseInt(this.state.amount) - parseInt(e.price)),
-                ecobag_list : [
-                    ...this.state.ecobag_list,
-                    {...e}
-                ]
-            })
-            this.props.setMinus(e.id);
-        }        
+        this.props.setMinus(e, this.payAmount);     
+    }
+    payAmount=(e)=>{
+        this.setState({
+            amount : (parseInt(this.state.amount) - parseInt(e.price)),
+            ecobag_list : [
+                ...this.state.ecobag_list,
+                {...e}
+            ]
+        })
     }
 
-    //後で全てのイベントまとめ処理
 
     clickSetMount = () =>{
         this.setState({
@@ -80,6 +84,18 @@ class VendingMachine extends Component {
         })
     }
 
+    endStock=()=>{
+        this.setState({
+            isSet_Stock : false
+        })
+    }
+
+    clickSet=()=>{
+        this.setState({
+            isSet_Stock : true
+        })
+    }
+
     //投入処理
     setMount = () =>{
         if(/^-?[0-9]+$/.test(this.state.input_amount) && parseInt(this.state.input_amount ) >= 0){
@@ -94,7 +110,6 @@ class VendingMachine extends Component {
     }
 
     render() {
-
         {/* 自動販売機 */}
         return(
             <div className="v-vendingmachine-div_main">
@@ -102,9 +117,9 @@ class VendingMachine extends Component {
                     <div className="v-vendingmachine-div_content">
                         {/* ジュースのリスト出力 */}
                         <div className="v-vendingmachine-div_juicelist">
-                            {this.state.juice_list.map(idx => {
+                            {this.props.juice_list.map(idx => {
                                 return (
-                                    <ListItem item={idx} key={idx.id} pickJuice={this.pickJuice} amount={this.state.amount} />
+                                    <ListItem item={idx} key={idx.id} pickJuice={this.pickJuice} amount={this.state.amount} is_getJuice={this.props.is_getJuice}/>
                                 );
                             })}
                         </div> 
@@ -128,6 +143,14 @@ class VendingMachine extends Component {
                                 onClick={this.clickPush} 
                                 style={this.state.ecobag_list.length > 0 ? {boxShadow:"0px 0px 15px yellowgreen"} : {boxShadow:"none"}}/>   
                         </div>
+
+                        <input 
+                            type="image" 
+                            className="v-vendingmachine-button_set"
+                            src={require("../../../image/set.png")}
+                            alt=""
+                            onClick={this.clickSet}
+                            />
                     </div>
                 </div>
 
@@ -167,12 +190,26 @@ class VendingMachine extends Component {
                     {
                         this.state.ecobag_list.map((val, idx)=>{
                             return (
-                                <b style={{margin:"0px 4px"}} key={"ecbList"+val.id+idx}>{val.name}</b>
+                                <img className="v-vendingmachine-img_purchase" src={S3_URL+val.image} alt="" key={"ecbList"+val.id+idx} />
                             )
                         })
                     }
                     </DialogContent>             
-                </Dialog>               
+                </Dialog>  
+
+                {/* 在庫管理表示 */}
+                <Dialog
+                    open={this.state.isSet_Stock}
+                    onClose={this.endStock}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <Stock 
+                        juice_list={this.props.juice_list} 
+                        delJuice={this.props.delJuice}
+                        initJuice={this.props.initJuice}
+                        updJuice={this.props.updJuice}/>            
+                </Dialog>                               
             </div>
         )
     }

@@ -1,7 +1,7 @@
-//import $ from 'jquery';
+import $ from 'jquery';
 
 const Api = {
-    getJuiceList: () => {
+    test: () => {
         let data = [
             {"id": 1, "name" : "cola", "quantity" : 5, "image" : require("./image/cola.png"), "price" : 900},
             {"id": 2, "name" : "fanta", "quantity" : 5, "image" : require("./image/fanta.png"), "price" : 800},
@@ -28,6 +28,124 @@ const Api = {
         //callback(data);
 
         return data;
+    },
+
+    getJuiceList: (callback) =>{
+        let data = {};
+        $.ajax({
+            type: 'POST',
+            url: 'https://kb4kow6mcd.execute-api.ap-northeast-1.amazonaws.com/v1_0/vm003-getjuicelist',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'JSON',
+            success: function (json) {
+                if (typeof callback !== 'undefined' && callback !== null) {
+                    callback((json.body).list);
+                } else {
+                    return (json.body).list;
+                }
+        },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    },
+
+    buyJuice: (e, callback, callback2) =>{
+        let data = e;
+
+        $.ajax({
+            type: 'POST',
+            url: 'https://kb4kow6mcd.execute-api.ap-northeast-1.amazonaws.com/v1_0/vm004-buyjuice',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'JSON',
+            success: function (json) {
+                if((json.body).err !== undefined){
+                    alert("注文手続きでエラーが発生しました。");
+                    callback();
+                }else{
+                    callback();
+                    callback2(e);
+                }
+        },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    },
+
+    delJuice: (e, callback) =>{
+        let data = e;
+
+        $.ajax({
+            type: 'POST',
+            url: 'https://kb4kow6mcd.execute-api.ap-northeast-1.amazonaws.com/v1_0/vm005-deljuice',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'JSON',
+            success: function (json) {
+                if((json.body).err !== undefined){
+                    alert("エラーが発生しました。");
+                    callback();
+                }else{
+                    callback();
+                }
+        },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    },
+
+    initJuice: (e, callback, callback2) =>{
+        let data = e;
+
+        $.ajax({
+            type: 'POST',
+            url: 'https://kb4kow6mcd.execute-api.ap-northeast-1.amazonaws.com/v1_0/vm001-initjuice',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'JSON',
+            success: function (json) {
+                if((json.body).err !== undefined){
+                    alert("エラーが発生しました。");
+                    callback();
+                    callback2();
+                }else{
+                    callback();
+                    callback2();
+                }
+        },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    },
+
+    updJuice: (e, callback, callback2) =>{
+        let data = e;
+
+        $.ajax({
+            type: 'POST',
+            url: 'https://kb4kow6mcd.execute-api.ap-northeast-1.amazonaws.com/v1_0/vm002-updatejuice',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'JSON',
+            success: function (json) {
+                if((json.body).err !== undefined){
+                    alert("エラーが発生しました。");
+                    callback();
+                    callback2();
+                }else{
+                    callback();
+                    callback2();
+                }
+        },
+            error: function(err) {
+                console.log(err);
+            }
+        });
     },
 }
 

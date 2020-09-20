@@ -9,25 +9,48 @@ class Main extends Component {
         this.state = {
             main_comp : '',
             value: null,
-            juice_list : Api.getJuiceList()
+            juice_list : [],
+            is_getJuice : false            
         }
+
+        this.getJListCB();
+    }
+
+    //api돌아갈때의 블록 판단할 스테이터랑 변경할 함수 추가
+    //액션메인이랑, 페이지의 상관관계에대해 한번더 생각하기
+
+    setJuiceList=(e)=>{
+        this.setState({
+            juice_list : e,
+            is_getJuice : false
+        })
+    }
+    getJListCB=()=>{
+        Api.getJuiceList(this.setJuiceList)
+    }
+
+    delJuice=(juiceInfo, callback)=>{        
+        Api.delJuice(juiceInfo, this.getJListCB);
+    }
+
+    initJuice=(juiceInfo, callback)=>{
+        Api.initJuice(juiceInfo, this.getJListCB, callback);
+    }
+
+    updJuice=(juiceInfo, callback)=>{
+        Api.updJuice(juiceInfo, this.getJListCB, callback);
     }
 
     //ジュースの在庫-1
     //後でAPI処理に編集
-    setMinus=(juiceId)=>{
-        var save_arr = [];
-        save_arr = this.state.juice_list;
-
-        this.state.juice_list.forEach((val, idx) => {
-            if(val.id === juiceId){
-                save_arr[idx].quantity = (--save_arr[idx].quantity)
-            }
-        })
+    setMinus=(juiceInfo, callback)=>{
+        var save_data = {...juiceInfo};
 
         this.setState({
-            juice_list : save_arr
+            is_getJuice : true
         })
+        
+        Api.buyJuice(save_data, this.getJListCB, callback);     
     }
 
     render() {
@@ -38,6 +61,10 @@ class Main extends Component {
                 value={this.state.value}
                 juice_list={this.state.juice_list}
                 setMinus={this.setMinus}
+                is_getJuice={this.state.is_getJuice}
+                delJuice={this.delJuice}
+                initJuice={this.initJuice}
+                updJuice={this.updJuice}
             />
         );
     }

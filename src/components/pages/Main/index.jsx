@@ -16,7 +16,13 @@ class Main extends Component {
         return(
             <div className="p-main-div">
             <MainHeader/>
-            <VendingMachine juice_list={this.props.juice_list} setMinus={this.props.setMinus}/>
+            <VendingMachine 
+                juice_list={this.props.juice_list} 
+                setMinus={this.props.setMinus} 
+                is_getJuice={this.props.is_getJuice} 
+                delJuice={this.props.delJuice}
+                initJuice={this.props.initJuice}
+                updJuice={this.props.updJuice}/>
             </div>
         )
     }
