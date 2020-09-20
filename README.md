@@ -2,7 +2,7 @@
 
 説明　：　現実で使われている自動販売機をREACTを使ってWEBアプリ化したもの
 
-環境　：　React, Material UI, AWS(S3), css
+環境　：　React, Material UI, AWS(S3, dynamodb, lambda, APIGateway), css
 
 リンク : 　[vending_machine_S3_index_link](https://vending-machine-choe.s3-ap-northeast-1.amazonaws.com/index/index.html)
 
